@@ -1,0 +1,111 @@
+/*=============================================================================
+
+  File:         /node_modules/rwt-reading-points/rwt-reading-points.css
+  Language:     CSS
+  Copyright:    Read Write Tools © 2020
+  License:      MIT
+  Initial date: Jan 14, 2020
+  Contents:     Percentage read, reading time & points
+
+=============================================================================*/
+
+:host {
+	--pure-black: #000;
+	--nav-black: #111;
+	--light-black: #171717;
+	--medium-black: #222;
+	--black: #333;
+	--less-than-black: #444;
+	--gray: #777;
+	--white: #ccc;
+	--pure-white: #fff;
+	--title-blue: #42affa;
+	--yellow: #ffffa4;
+	--red: #ff3d3d;
+		
+	/* custom element decorations */
+	--color: var(--white);
+	--background: var(--less-than-black);
+	--accent-color1: #0079cc;
+
+	/* custom element variables */
+	--font-size: 0.8rem;
+	--panel-width: 12rem;
+	--panel-height: 3rem;
+	--y-offset: -3rem;
+}
+
+:host {
+	font-size: var(--font-size);
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
+#panel {
+	position: relative;
+	top: var(--y-offset);
+	width: var(--panel-width);
+	height: var(--panel-height);
+	margin: 0 0 -3rem 0;
+	padding: 0;
+	box-sizing: border-box;
+	cursor: pointer;
+}
+#panel.hide {
+	display: none;
+}
+#panel.show {
+	display: block;
+	animation-name: slide-in;
+	animation-duration: 6s;
+	animation-iteration-count: 1;
+	animation-timing-function: linear;
+	animation-fill-mode: forwards;
+}
+@keyframes slide-in {
+  0% {
+	left: calc(0px - var(--panel-width));
+	opacity: 0.1;
+  }
+  10% {
+	left: 0;
+	opacity: 1;
+  }
+  60% {
+	left: 0;
+	opacity: 1;
+  }
+  100% {
+	left: 0;
+	opacity: 0;
+	display: none;
+  }
+}	
+
+/* ---------- anchor text ---------- */
+#container {
+	border-left: 4px solid var(--accent-color1);
+	border-right: 4px solid var(--accent-color1);
+	background-color: var(--background);
+	padding: 0.25rem 1rem;
+	box-sizing: border-box;
+}
+#container p {
+	color: var(--color);
+	white-space: nowrap;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+.thin {
+	display: inline-block;
+	width: 4rem;
+	font-weight: 400;
+	letter-spacing: 1px;
+}
+.heavy {
+	display: inline-block;
+	width: 5rem;
+	font-weight: 900;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+}
