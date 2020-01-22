@@ -152,7 +152,7 @@ export default class RwtReadingPoints extends HTMLElement {
 
 	validateSetup() {
 		// if the data attributes are not properly set, do not display the panel
-		if (this.skillLevel == '' || this.skillLevel == '$READING-LEVEL')
+		if (this.skillLevel == '' || this.skillLevel == '0' || this.skillLevel == '$READING-LEVEL')
 			this.hasValidSetup = false;
 		if (isNaN(parseInt(this.skillPoints)) || this.skillPoints == '$READING-POINTS')
 			this.hasValidSetup = false;
@@ -172,7 +172,7 @@ export default class RwtReadingPoints extends HTMLElement {
 
 		var readersData = new ReadersData();			
 		var rc = readersData.readFromStorage();
-		var title = encodeURIComponent(document.querySelector('title').innerText);
+		var title = document.querySelector('title').innerText;
 		var cappedReadingTime = this.calculateReadingTime();
 		readersData.addPage(window.location.pathname, title, this.skillCategory, this.skillLevel, this.skillPoints, this.suggestedReadingTime, this.percentRead, cappedReadingTime);
 		readersData.writeToStorage();
