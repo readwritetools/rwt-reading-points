@@ -16,8 +16,12 @@ export default class RwtReadingPoints extends HTMLElement {
 	constructor() {
 		super();
 		
+		// initialization
+		this.hasShadowDom = false;
+		
 		// external elements
-		this.frame = null;
+		this.frame = null;				// #frame : use scrolling events of this element to track reading time
+		this.positioner = null;			// #objectives : insert the fly-in panel immediately below this element 
 		
 		// child elements
 		this.panel = null;
@@ -26,10 +30,12 @@ export default class RwtReadingPoints extends HTMLElement {
 		this.points = null;
 
 		// data
-		this.skillCategory = 'General';
-		this.skillLevel = 'Simple';
-		this.skillPoints = 1;
-		this.percentRead = 0;
+		this.hasValidSetup = true;			// true when data- attributes are valid and #objectives element found
+		this.skillCategory = 'General';		// open ended value
+		this.skillLevel = 'Simple';			// Simple, Moderate, Challenge
+		this.skillPoints = 1;				// 1,2,3,4,5, ...
+		this.suggestedReadingTime = 60;		// suggested reading time in seconds
+		this.percentRead = 0;				// determined with calculateReadingTime()
 		
 		// readingTime
 		this.loadTime = Date.now();
@@ -47,6 +53,10 @@ export default class RwtReadingPoints extends HTMLElement {
 		if (!this.isConnected)
 			return;
 		
+		// connectedCallback is called again when this customElement is re-inserted back into the document (see below)
+		if (this.hasShadowDom == true)
+			return;
+		
 		var htmlFragment = await this.fetchTemplate();
 		if (htmlFragment == null)
 			return;
@@ -59,12 +69,16 @@ export default class RwtReadingPoints extends HTMLElement {
 		this.attachShadow({mode: 'open'});
 		this.shadowRoot.appendChild(htmlFragment); 
 		this.shadowRoot.appendChild(styleElement); 
+		this.hasShadowDom = true;
 		
 		this.identifyChildren();
 		this.registerEventListeners();
+		this.readAttributes();
 		this.initializeText();
+		this.validateSetup();
 		this.show();
 	}
+	
 	
 	//-------------------------------------------------------------------------
 	// initialization
@@ -102,6 +116,7 @@ export default class RwtReadingPoints extends HTMLElement {
 	//^ Identify this component's children
 	identifyChildren() {
 		this.frame = document.getElementById('frame');
+		this.positioner = document.getElementById('objectives');
 		this.panel = this.shadowRoot.getElementById('panel');
 		this.container = this.shadowRoot.getElementById('container');
 		this.level = this.shadowRoot.getElementById('level');
@@ -116,7 +131,7 @@ export default class RwtReadingPoints extends HTMLElement {
 		this.frame.addEventListener('scroll', this.onScroll.bind(this));
 	}
 
-	initializeText() {
+	readAttributes() {
 		if (this.hasAttribute('data-category'))
 			this.skillCategory = this.getAttribute('data-category');
 
@@ -126,8 +141,25 @@ export default class RwtReadingPoints extends HTMLElement {
 		if (this.hasAttribute('data-points'))
 			this.skillPoints = parseInt(this.getAttribute('data-points'));
 
+		if (this.hasAttribute('data-time'))
+			this.suggestedReadingTime = parseInt(this.getAttribute('data-time'));
+	}
+	
+	initializeText() {
 		this.level.innerText = this.skillLevel;
 		this.points.innerText = this.skillPoints;
+	}
+
+	validateSetup() {
+		// if the data attributes are not properly set, do not display the panel
+		if (this.skillLevel == '' || this.skillLevel == '$READING-LEVEL')
+			this.hasValidSetup = false;
+		if (isNaN(parseInt(this.skillPoints)) || this.skillPoints == '$READING-POINTS')
+			this.hasValidSetup = false;
+		
+		// if the #objectives element was not found, do not display panel
+		if (this.positioner == null)
+			this.hasValidSetup = false;
 	}
 	
 	//-------------------------------------------------------------------------
@@ -135,10 +167,14 @@ export default class RwtReadingPoints extends HTMLElement {
 	//-------------------------------------------------------------------------
 	
 	onDocumentUnload() {
+		if (!this.hasValidSetup)
+			return;
+
 		var readersData = new ReadersData();			
 		var rc = readersData.readFromStorage();
 		var title = encodeURIComponent(document.querySelector('title').innerText);
-		readersData.addPage(window.location.pathname, title, this.skillCategory, this.skillLevel, this.skillPoints, this.percentRead, this.calculateReadingTime());
+		var cappedReadingTime = this.calculateReadingTime();
+		readersData.addPage(window.location.pathname, title, this.skillCategory, this.skillLevel, this.skillPoints, this.suggestedReadingTime, this.percentRead, cappedReadingTime);
 		readersData.writeToStorage();
 	}
 	
@@ -163,7 +199,14 @@ export default class RwtReadingPoints extends HTMLElement {
 	// component methods
 	//-------------------------------------------------------------------------
 	
+	// do not show the fly-in panel if the data- attributes were not properly set
 	show() {
+		if (!this.hasValidSetup)
+			return;
+
+		// re-insert the customElement to be just below the #objectives positioner
+		this.positioner.after(this);
+		
 		this.panel.classList.remove('hide');
 		this.panel.classList.add('show');
 	}
@@ -172,16 +215,19 @@ export default class RwtReadingPoints extends HTMLElement {
 	// The firstChunk is the amount of time between page load and the first scrolling event.
 	// The lastChunk is the amount of time between page load and the final scrolling event.
 	// In both cases, assume that the amount of reading time after the last scrolling event is equal to the firstChunk 
-	calculateReadingTime() {
+	// Cap the reading time at two times the suggested reading time.
+	calculateReadingTime() {		
+		var cappedReadingTime = (2 * this.suggestedReadingTime);
+
 		if (this.firstScrollTime == null)
 			return 0;
 		
 		var firstChunk = Math.round((this.firstScrollTime - this.loadTime) / 1000);
 		if (this.lastScrollTime == null)
-			return firstChunk + firstChunk;
+			return Math.min(firstChunk + firstChunk, cappedReadingTime);
 		
 		var lastChunk = Math.round((this.lastScrollTime - this.loadTime) / 1000);
-		return lastChunk + firstChunk;
+		return Math.min(lastChunk + firstChunk, cappedReadingTime);
 	}
 }
 

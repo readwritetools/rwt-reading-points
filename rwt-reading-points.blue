@@ -12,9 +12,11 @@
 
 !option --fragment
 
-div #panel .hide {
-	div #container {
-		p <<.thin Learning>> <<#level  .heavy >>
-		p <<.thin Points>>   <<#points .heavy >>
+div #holder {
+	div #panel .hide {
+		div #container {
+			p <<.thin Learning>> <<#level  .heavy >>
+			p <<.thin Points>>   <<#points .heavy >>
+		}
 	}
 }
