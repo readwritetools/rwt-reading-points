@@ -152,12 +152,14 @@ export default class RwtReadingPoints extends HTMLElement {
 
 	validateSetup() {
 		// if the data attributes are not properly set, do not display the panel
-		if (this.skillLevel == '' || this.skillLevel == '0' || this.skillLevel == '$READING-LEVEL')
+		if (isNaN(this.skillPoints))
 			this.hasValidSetup = false;
-		if (isNaN(parseInt(this.skillPoints)) || this.skillPoints == '$READING-POINTS')
-			this.hasValidSetup = false;
+		if (isNaN(this.suggestedReadingTime))
+			this.suggestedReadingTime = false;
 		
-		// if the #objectives element was not found, do not display panel
+		// if the #frame of #objectives element were not found, do not display panel
+		if (this.frame == null)
+			this.hasValidSetup = false;
 		if (this.positioner == null)
 			this.hasValidSetup = false;
 	}
