@@ -155,7 +155,7 @@ export default class RwtReadingPoints extends HTMLElement {
 		if (isNaN(this.skillPoints) || this.skillPoints == 0)
 			this.hasValidSetup = false;
 		if (isNaN(this.suggestedReadingTime) || this.suggestedReadingTime == 0)
-			this.suggestedReadingTime = false;
+			this.hasValidSetup = false;
 		
 		// if the #frame of #objectives element were not found, do not display panel
 		if (this.frame == null)
