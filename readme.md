@@ -184,6 +184,6 @@ under the MIT License.
 <table>
 	<tr><td>Source code</td> 			<td><a href='https://github.com/readwritetools/rwt-reading-points'>github</a></td></tr>
 	<tr><td>Package installation</td> <td><a href='https://www.npmjs.com/package/rwt-reading-points'>NPM</a></td></tr>
-	<tr><td>Documentation</td> 		<td><a href='https://hub.readwritetools.com/components/favorites.blue'>Read Write Hub</a></td></tr>
+	<tr><td>Documentation</td> 		<td><a href='https://hub.readwritetools.com/components/reading-points.blue'>Read Write Hub</a></td></tr>
 </table>
 
