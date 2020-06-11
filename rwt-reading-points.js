@@ -84,8 +84,7 @@ export default class RwtReadingPoints extends HTMLElement {
 		catch (err) {
 			console.log(err.message);
 		}
-	}
-	
+	}	
 	
 	//-------------------------------------------------------------------------
 	// initialization
