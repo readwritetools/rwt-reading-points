@@ -195,7 +195,7 @@ export default class RwtReadingPoints extends HTMLElement {
 		if (isNaN(this.suggestedReadingTime) || this.suggestedReadingTime == 0)
 			this.hasValidSetup = false;
 		
-		// if the #frame of #objectives element were not found, do not display panel
+		// if the #frame or #objectives element were not found, do not display panel
 		if (this.frame == null)
 			this.hasValidSetup = false;
 		if (this.positioner == null)

@@ -32,7 +32,8 @@
 	--font-size: 0.8rem;
 	--panel-width: 12rem;
 	--panel-height: 3rem;
-	--panel-destination: 0px; /*6rem;*/  /* HERE */
+	--panel-destination: 0rem;
+	--holder-width: 37rem;
 	
 	/* calculated values */
 	--panel-origin: calc(0px - var(--panel-width));
@@ -44,11 +45,11 @@
 }
 
 #holder {
-	width: 100%;
+	max-width: var(--holder-width);
 	height: var(--panel-height);
 	margin-top: calc(var(--panel-height) * -1);
-	
-	max-width: 35rem;  /* HERE */
+	margin-left: auto;
+	margin-right: auto;
 }
 #panel {
 	position: relative;
@@ -56,11 +57,9 @@
 	left: var(--panel-origin);
 	width: var(--panel-width);
 	height: var(--panel-height);
-	margin-top: calc(var(--panel-height) * -1);
+	margin-top: 0;
 	opacity: 0.1;
 	cursor: pointer;
-	
-	border: 1px dotted red;  /* HERE */
 }
 #panel.hide {
 	display: none;
