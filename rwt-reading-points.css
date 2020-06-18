@@ -47,8 +47,6 @@
 #holder {
 	max-width: var(--holder-width);
 	height: var(--panel-height);
-	margin-top: calc(var(--panel-height) * -1);
-	margin-bottom: calc(var(--panel-height) * -1);
 	margin-left: auto;
 	margin-right: auto;
 	box-sizing: border-box;
