@@ -1,6 +1,6 @@
 {
   "name": "rwt-reading-points",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Percentage read, reading time & points, a W3C standard Web Component",
   "author": "Read Write Tools",
   "license": "MIT",
