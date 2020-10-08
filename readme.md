@@ -6,10 +6,16 @@
 
 
 
+
+
+
+
 <figure>
 	<img src='/img/components/reading-points/reading-points-pexels-wallace-chuck-3109167.jpg' width='100%' />
 	<figcaption></figcaption>
 </figure>
+
+##### Open Source DOM Component
 
 # Reading Points
 
@@ -23,23 +29,31 @@
 
 <table>
 	<tr><th>Abstract</th></tr>
-	<tr><td>The <span class=product>rwt-reading-points</span> web component provides site visitors with a clue about a document's reading-level, using a descriptive <i>learning level</i> and <i>experience points</i> system.  </td></tr>
+	<tr><td>The <span class=product>rwt-reading-points</span> DOM component provides site visitors with a clue about a document's reading-level, using a descriptive <i>learning level</i> and <i>experience points</i> system.  </td></tr>
 </table>
 
 ### Motivation
 
 When user's browse technical documentation it's not always easy to know if a
-page is meant for first timers or advanced users. This web component provides
+page is meant for first timers or advanced users. This DOM component provides
 that information using an ephemeral notification-style text block.
 
 As the user reads, a timer tracks how many seconds is spent reading. As the user
 scrolls down, the readers progress (as percent read) is tracked. This
 information is saved to the user's local storage for use with the <span>
-rwt-reading-summary</span> web component.
+rwt-reading-summary</span> DOM component.
+
+#### In the wild
+
+To see an example of this component in use, visit the <a href='https://rwserve.readwritetools.com/features.blue'>READ WRITE SERVE</a>
+website. The component is visible immediately after loading for about five
+seconds before fading away. To understand what's going on under the hood, use
+the browser's inspector to view the HTML source code and network activity, and
+follow along as you read this documentation.
 
 #### Prerequisites
 
-The <span>rwt-reading-points</span> web component works in any
+The <span>rwt-reading-points</span> DOM component works in any
 browser that supports modern W3C standards. Templates are written using <span>
 BLUE</span><span>PHRASE</span> notation, which can be compiled into HTML using the
 free <a href='https://hub.readwritetools.com/desktop/rwview.blue'>Read Write View</a>
@@ -65,14 +79,14 @@ on your development computer.
 npm init
 ```
 
-   * Download and install the web component using the command:
+   * Download and install the DOM component using the command:
 ```bash
 npm install rwt-reading-points
 ```
 
 
-Important note: This web component uses Node.js and NPM and `package.json` as a
-convenient *distribution and installation* mechanism. The web component itself
+Important note: This DOM component uses Node.js and NPM and `package.json` as a
+convenient *distribution and installation* mechanism. The DOM component itself
 does not need them.
 
 #### Installation using Github
@@ -80,14 +94,14 @@ does not need them.
 If you are more comfortable using Github for installation, follow these steps:
 
    * Create a directory `node_modules` in the root of your web project.
-   * Clone the <span>rwt-reading-points</span> web component into it
+   * Clone the <span>rwt-reading-points</span> DOM component into it
       using the command:
 ```bash
 git clone https://github.com/readwritetools/rwt-reading-points.git
 ```
 
 
-### Using the web component
+### Using the DOM component
 
 After installation, you need to add two things to your HTML page to make use of
 it.
@@ -174,10 +188,23 @@ The component issues life-cycle events.
 	<dd>Sent when the component is fully loaded and ready to be used. As a convenience you can use the <code>waitOnLoading()</code> method which returns a promise that resolves when the <code>component-loaded</code> event is received. Call this asynchronously with <code>await</code>.</dd>
 </dl>
 
+---
+
+### Reference
+
+
+<table>
+	<tr><td><img src='/img/read-write-hub.png' alt='DOM components logo' width=40 /></td>	<td>Documentation</td> 		<td><a href='https://hub.readwritetools.com/components/reading-points.blue'>READ WRITE HUB</a></td></tr>
+	<tr><td><img src='/img/git.png' alt='git logo' width=40 /></td>	<td>Source code</td> 			<td><a href='https://github.com/readwritetools/rwt-reading-points'>github</a></td></tr>
+	<tr><td><img src='/img/dom-components.png' alt='DOM components logo' width=40 /></td>	<td>Component catalog</td> 	<td><a href='https://domcomponents.com/reading-points.blue'>DOM COMPONENTS</a></td></tr>
+	<tr><td><img src='/img/npm.png' alt='npm logo' width=40 /></td>	<td>Package installation</td> <td><a href='https://www.npmjs.com/package/rwt-reading-points'>npm</a></td></tr>
+	<tr><td><img src='/img/read-write-stack.png' alt='Read Write Stack logo' width=40 /></td>	<td>Publication venue</td>	<td><a href='https://readwritestack.com/components/reading-points.blue'>READ WRITE STACK</a></td></tr>
+</table>
+
 ### License
 
-The <span>rwt-reading-points</span> web component is licensed
-under the MIT License.
+The <span>rwt-newton</span> DOM component is licensed under the MIT
+License.
 
 <img src='/img/blue-seal-mit.png' width=80 align=right />
 
@@ -188,13 +215,4 @@ under the MIT License.
 	<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
 	<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 </details>
-
-### Availability
-
-
-<table>
-	<tr><td>Source code</td> 			<td><a href='https://github.com/readwritetools/rwt-reading-points'>github</a></td></tr>
-	<tr><td>Package installation</td> <td><a href='https://www.npmjs.com/package/rwt-reading-points'>NPM</a></td></tr>
-	<tr><td>Documentation</td> 		<td><a href='https://hub.readwritetools.com/components/reading-points.blue'>Read Write Hub</a></td></tr>
-</table>
 
